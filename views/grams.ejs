@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Spottygram</title>
+  <script src="/jquery/dist/jquery.js"></script>
+  <script src="/angular/angular.js"></script>
+  <script src="/semantic/dist/semantic.js"></script>
+  <link rel="stylesheet" type="text/css" href="/semantic/dist/semantic.css">
+  <script type="text/javascript" src="vendors/jquery.slimscroll.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="/fullpage.js/jquery.fullPage.css" />
+  <script type="text/javascript" src="/fullpage.js/jquery.fullPage.js"></script>
+  <script src="/fullpage.js/vendors/jquery.easings.min.js"></script>
+  <script type="text/javascript" src="/fullpage.js/vendors/jquery.slimscroll.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script src="/main.js"></script>
+</head>
+<body>
+
+  <!-- //////////////// MENU ////////////////////-->
+    <div class="ui top attached demo menu inverted blue">
+      <a class="item"><i class="sidebar icon"></i>Menu</a>
+      <div class="right menu">
+        <a href="/new" class="item">Create Gram</a>
+      </div>
+    </div>
+
+    <div class="ui bottom attached segment pushable">
+      <div class="ui inverted red left inline vertical sidebar menu uncover">
+        <a href="/" class="item">Main</a>
+        <a href="/all" class="item">Grams</a>
+        <a href="/top" class="item">Top One</a>
+        <a href="/latest" class="item">Latest One</a>
+        <a href="/search" class="item">Find</a>
+        <a href="/contact" class="item">Bark at Us</a>
+      </div>
+  <!-- //////////////// MENU ////////////////////-->
+
+  <!-- //////////////// BODY ////////////////////-->
+    <h1>Spottygram</h1>
+
+    <!-- ..... POST ......-->
+    <% posts.forEach(function(post){ %>
+    <div class="ui centered card">
+
+      <div class="content">
+        <div class="right floated meta"><%= post.location %></div>
+        <img class="ui avatar image" src="http://s20.postimg.org/x5fpt3z15/IMG_0417.jpg"> 
+        <%= post.name %>
+      </div>
+
+      <div class="image"><img src="<%= post.image %>"></div>
+
+      <div class="content">
+
+        <div class="description">
+          <p><%= post.description %><br><br></p>
+        </div>
+
+        <span class="right floated">
+          <i data-id="<%= post._id %>" class="heart outline like icon"></i>
+          <% if (!post.likes || post.likes === 0){ %>
+          No likes yet
+          <% } else { %>
+          <%= post.likes %> likes
+          <% } %>
+        </span>
+
+        <i class="comment icon see-comments"></i>
+        <span class="see-comments">See comments</span>
+
+        <div class="comments-section">
+          <ul>
+            <% if (post.comments){ %>
+              <% post.comments.forEach(function(comment){ %>
+              <li><%= comment %></li>
+              <% }) %> 
+            <% } else { %>
+              <li> No comments yet, be the first! </li>
+            <% } %>
+          </ul>
+        </div><!-- comments section div-->
+      </div><!-- CONTENT DIV -->
+
+      <div class="extra content">
+        <div class="ui large transparent left icon input">
+          <i class="heart outline icon"></i>
+            <input data-id="<%= post._id %>" class="comment-input" type="text" placeholder="Add Comment...">
+        </div>
+      </div>
+    </div><!--CARD DIV-->
+    <% }) %>
+    <!-- ..... POST ......-->
+  <!-- //////////////// BODY ////////////////////-->
+
+
+</body>
+</html>

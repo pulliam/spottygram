@@ -1,0 +1,7 @@
+.ui.bottom.attached.segment.pushable {
+	background-color: gray !important;
+}
+
+.pusher > h1 {
+	color: white;
+}
