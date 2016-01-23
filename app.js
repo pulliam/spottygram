@@ -97,11 +97,10 @@ app.get('/new', function (req, res) {
 });
 
 app.get('/top', function (req, res) {
-    res.render('top') 
-});
-
-app.get('/latest', function (req, res) {
-    res.render('latest') 
+    db.collection('posts').find().sort({likes: -1}).limit(1).toArray(function(err, results){
+    console.log(results);
+    res.render('top', {posts: results}); //render first 10
+    }) 
 });
 
 app.get('/search', function (req, res) {

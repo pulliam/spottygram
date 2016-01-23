@@ -5,3 +5,18 @@
 .pusher > h1 {
 	color: white;
 }
+
+#all-contacts {
+	width: 80%;
+	margin: 0px auto;
+}
+
+.subscribe {
+	float: right;
+	width: 48%;
+}
+
+.email-us-form {
+	float: left;
+	width: 48%;
+}

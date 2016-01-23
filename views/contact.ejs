@@ -30,49 +30,49 @@
         <a href="/" class="item">Main</a>
         <a href="/all" class="item">Grams</a>
         <a href="/top" class="item">Top One</a>
-        <a href="/latest" class="item">Latest One</a>
         <a href="/search" class="item">Find</a>
         <a href="/contact" class="item">Bark at Us</a>
       </div>
   <!-- //////////////// MENU ////////////////////-->
 
   <!-- //////////////// BODY ////////////////////-->
-  <div class="pusher">
-    <div class="ui horizontal segments">
+  <div class="ui segment center aligned">
+    <h1>Spottygram</h1>
+    <p><em>The instagram for the cuttest puppies around</em></p>
+    <p><b>Bark at Us and we will get bark back too!</b></p>
+  </div>
+  <br><br>
 
-      <div class="ui segment">
-        <h2>We would love to hear from you!</h2>
-        <h4 class="ui dividing header">E-mail us!</h4>
-        <form class="ui form" method="post" action="/contact" name="contactus">
-          <!--FIND OUT HOW TO DO UPLOAD IMAGE-->
-          <div class="two fields">
-            <div class="field"><label>Name</label>
-              <input type="text" name="name" placeholder="Name" id="name">
-            </div>
-            <div class="field"><label>E-mail</label>
-              <input type="text" name="email" placeholder="E-mail" id="email">
-            </div>
-          </div>
-          <div class="field"><label>Your Message</label>
-            <textarea name="message" placeholder="Message" id="message"></textarea>
-          </div>
-          <input class="ui button" type="submit" value="Send" id="submit">
-        </form>
+  <div id="all-contacts">
+  <div class="subscribe">
+    <h4 class="ui dividing header">Paw me in!</h4>
+    <form class="ui form">
+        <div class="field">
+            <input type="text" placeholder="Email">
+        </div>
+         <input class="ui button" type="submit">
+    </form>
+  </div>
+
+  <div class="email-us-form">
+    <h4 class="ui dividing header">E-mail us!</h4>
+    <form class="ui form" method="post" action="/contact" name="contactus">
+      <div class="two fields">
+        <div class="field"><label>Name</label>
+          <input type="text" name="name" placeholder="Name" id="name">
+        </div>
+        <div class="field"><label>E-mail</label>
+          <input type="text" name="email" placeholder="E-mail" id="email">
+        </div>
       </div>
-
-      <div class="ui segment">
-        <h2>Want to subscribe to our Pawsletter?</h2>
-        <h4 class="ui dividing header">Paw me in!</h4>
-        <form class="ui form">
-          <div class="field">
-              <input type="text" placeholder="Email">
-          </div>
-           <input class="ui button" type="submit">
-        </form>
+      <div class="field"><label>Your Message</label>
+        <textarea name="message" placeholder="Message" id="message"></textarea>
       </div>
-
-    </div>
-  </div></div>
+      <input class="ui button" type="submit" value="Send" id="submit">
+    </form>
+  </div>
+  </div>
+  
   <!-- //////////////// BODY ////////////////////-->
 
 
