@@ -60,18 +60,14 @@
 
         <span class="right floated">
           <i data-id="<%= post._id %>" class="heart outline like icon"></i>
-          <% if (!post.likes || post.likes === 0){ %>
-          No likes yet
-          <% } else { %>
-          <%= post.likes %> likes
-          <% } %>
+          <span id="post_<%= post._id %>"><%= post.likes %></span> likes
         </span>
 
         <i class="comment icon see-comments"></i>
         <span class="see-comments">See comments</span>
 
         <div class="comments-section">
-          <ul>
+          <ul id="ul_<%= post._id %>">
             <% if (post.comments){ %>
               <% post.comments.forEach(function(comment){ %>
               <li><%= comment %></li>

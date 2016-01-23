@@ -43,20 +43,20 @@
       <div class="ui segment">
         <h2>We would love to hear from you!</h2>
         <h4 class="ui dividing header">E-mail us!</h4>
-        <form class="ui form" method="" action="">
+        <form class="ui form" method="post" action="/contact" name="contactus">
           <!--FIND OUT HOW TO DO UPLOAD IMAGE-->
           <div class="two fields">
             <div class="field"><label>Name</label>
-              <input type="text" name="name" placeholder="Name">
+              <input type="text" name="name" placeholder="Name" id="name">
             </div>
             <div class="field"><label>E-mail</label>
-              <input type="text" name="email" placeholder="Location">
+              <input type="text" name="email" placeholder="E-mail" id="email">
             </div>
           </div>
           <div class="field"><label>Your Message</label>
-            <textarea name="message" placeholder="Message"></textarea>
+            <textarea name="message" placeholder="Message" id="message"></textarea>
           </div>
-          <input class="ui button" type="submit">
+          <input class="ui button" type="submit" value="Send" id="submit">
         </form>
       </div>
 

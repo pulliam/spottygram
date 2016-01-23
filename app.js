@@ -9,6 +9,7 @@ var multiparty = require('multiparty');
 var http = require('http');
 var util = require('util');
 var cloudinary = require('cloudinary');
+var nodemailer = require('nodemailer');
 
 // Configuration
 app.use(bodyParser.json());
@@ -39,7 +40,7 @@ app.get('/', function (req, res) {
 });
 
 app.get('/all', function (req, res) {
-    db.collection('posts').find().toArray(function(err, results){
+    db.collection('posts').find().sort({lastmodified: -1}).toArray(function(err, results){
     console.log(results);
     res.render('grams', {posts: results}); //render first 10
     })
@@ -55,7 +56,8 @@ app.post('/all', multipartMiddleware, function (req, res) {
       description: req.body.description, 
       location: req.body.location,
       likes: 0,
-      comments: []
+      comments: [],
+      lastmodified: new Date()
     },
     function(err, result){
       res.redirect('/all');
@@ -70,7 +72,10 @@ app.post('/api/comments', function(req, res) {
     {"$push": { comments: comment }},
     function(err, result) {
       console.log('RESULT ', result);
-      res.end();
+      db.collection('posts').findOne({"_id": ObjectId(req.body.id)},
+        function(err, data){
+          res.json(data.comments);
+        })
     })
 });
 
@@ -80,7 +85,10 @@ app.post('/api/likes', function(req, res) {
     {"$inc": { likes: 1 }},
     function(err, result) {
       console.log('RESULT ', result);
-      res.end();
+      db.collection('posts').findOne({"_id": ObjectId(req.body.id)}, 
+        function(err, data){
+          res.json(data.likes);
+        })
     })
 });
 
@@ -102,6 +110,35 @@ app.get('/search', function (req, res) {
 
 app.get('/contact', function (req, res) {
     res.render('contact') 
+});
+
+app.post('/contact', function (req, res) {
+  var mailOpts, smtpTrans;
+  //Setup Nodemailer transport, I chose gmail. Create an application-specific password to avoid problems.
+  smtpTrans = nodemailer.createTransport('SMTP', {
+      service: 'Gmail',
+      auth: {
+          user: "thaispulliam@gmail.com",
+          pass: "application-specific-password" 
+      }
+  });
+  //Mail options
+  mailOpts = {
+      from: req.body.name + ' &lt;' + req.body.email + '&gt;', //grab form data from the request body object
+      to: 'me@gmail.com',
+      subject: 'Website contact form',
+      text: req.body.message
+  };
+  smtpTrans.sendMail(mailOpts, function (error, response) {
+      //Email not sent
+      if (error) {
+          res.render('contact', { title: 'Raging Flame Laboratory - Contact', msg: 'Error occured, message not sent.', err: true, page: 'contact' })
+      }
+      //Yay!! Email sent
+      else {
+          res.render('contact', { title: 'Raging Flame Laboratory - Contact', msg: 'Message sent! Thank you.', err: false, page: 'contact' })
+      }
+  });
 });
 
 app.listen(process.env.PORT || 3000);

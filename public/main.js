@@ -23,7 +23,14 @@ $('.comment-input').on('keypress', function(event) {
 			comment = $input.val(),
 			id = $input.data('id');
 		$input.val('');
+		window.alert('Comment posted!');
+		$ul = $('#ul_' + id);
 		$.post('/api/comments', {id: id, comment: comment}).done(function(data) {	
+			console.log(data);
+			$ul.empty();
+			data.forEach(function(comment){
+				$ul.append('<li>' + comment + '</li>');
+			})
 		});
 	}
 })
@@ -31,8 +38,61 @@ $('.comment-input').on('keypress', function(event) {
 $('.heart.outline.like.icon').on('click', function(){
 	var $input = $(this),
 			id = $input.data('id');
+			$(this).removeClass('outline');
+			// var numOfLikes = $('#post_' + id).text();
+			// $('#post_' + id).text(parseInt(numOfLikes) + 1);
 	$.post('/api/likes', {id: id}).done(function(data) {	
+		$('#post_' + id).text(data);
+		console.log(data);
 		});
 })
+
+$('.ui.form.creategram')
+  .form({
+    name: {
+      identifier  : 'name',
+      rules: [
+        {
+          type   : 'empty',
+          prompt : 'Please enter the dog name'
+        }
+      ]
+    },
+    description: {
+      identifier  : 'description',
+      rules: [
+        {
+          type   : 'empty',
+          prompt : 'Please enter a description'
+        },
+        {
+          type   : 'length[6]',
+          prompt : 'Please enter a description with at least 6 letters'
+        }
+      ]
+    },
+    location: {
+      identifier : 'location',
+      rules: [
+        {
+          type   : 'empty',
+          prompt : 'Please enter a location'
+        }
+      ]
+    },
+    image: {
+      identifier : 'image',
+      rules: [
+        {
+          type   : 'empty',
+          prompt : 'Please upload an image'
+        }
+      ]
+    },
+  }, 
+  {
+    inline : true,
+    on     : 'blur',
+  });
 
 });
