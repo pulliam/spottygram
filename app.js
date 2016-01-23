@@ -10,6 +10,9 @@ var http = require('http');
 var util = require('util');
 var cloudinary = require('cloudinary');
 var nodemailer = require('nodemailer');
+var _  = require("underscore");
+var router = express.Router();
+var smtpTransport = require('nodemailer-smtp-transport');
 
 // Configuration
 app.use(bodyParser.json());
@@ -22,6 +25,7 @@ cloudinary.config({
   api_key: process.env.apikeycloud, 
   api_secret: process.env.cloudkey 
 });
+app.use('/sayHello', router);
 
 // Database
 var db;
@@ -112,35 +116,31 @@ app.get('/contact', function (req, res) {
 });
 
 app.post('/contact', function (req, res) {
-  var mailOpts, smtpTrans;
-  smtpTrans = nodemailer.createTransport('SMTP', {
-      service: 'Gmail',
-      auth: {
-          user: "spottygram@gmail.com",
-          pass: process.env.spottygrampassword
-      }
-  });
-  mailOpts = {
-      from: req.body.name + ' &lt;' + req.body.email + '&gt;', //grab form data from the request body object
-      to: 'spottygram@gmail.com',
-      subject: 'Website contact form',
-      text: req.body.message
+  var transporter = nodemailer.createTransport(smtpTransport({
+    service: 'Gmail',
+    auth: {
+      user: "spottygram@gmail.com",
+      pass: process.env.spottygrampassword
+    }
+  }));
+
+  var messagetext = 'Hello from: ' + req.body.name + '\n\n' + 'User e-mail: ' + req.body.email + '\n\n' + 'Message: \n' + req.body.message;
+
+  var mailOptions = {
+    from: 'spottygram@gmail.com', 
+    to: 'spottygram@gmail.com', 
+    subject: 'Contact from User', 
+    text: messagetext
   };
-  smtpTrans.sendMail(mailOpts, function (error, response) {
-      //Email not sent
-      if (error) {
-          res.render('contact', 
-            { title: 'Raging Flame Laboratory - Contact', 
-            msg: 'Error occured, message not sent.', 
-            err: true, page: 'contact' })
-      }
-      //Yay!! Email sent
-      else {
-          res.render('contact', 
-            { title: 'Raging Flame Laboratory - Contact', 
-            msg: 'Message sent! Thank you.', 
-            err: false, page: 'contact' })
-      }
+
+  transporter.sendMail(mailOptions, function(error, info){
+    if(error){
+        console.log(error);
+        res.json({yo: 'error'});
+    }else{
+        console.log('Message sent: ' + info.response);
+        res.json({yo: info.response});
+    };
   });
 });
 
