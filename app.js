@@ -15,24 +15,8 @@ var nodemailer = require('nodemailer');
 var _ = require("underscore");
 var router = express.Router();
 var smtpTransport = require('nodemailer-smtp-transport');
-var cookieParser = require('cookie-parser');
-var session = require('express-session');
-var stormpath = require('stormpath');
-var path = require('path');
-var favicon = require('static-favicon');
-var logger = require('morgan');
-var passport = require('passport');
-var StormpathStrategy = require('passport-stormpath');
-var session = require('express-session');
-var flash = require('connect-flash');
-var router = express.Router();
-fs.createReadStream('.sample-env')
-  .pipe(fs.createWriteStream('.env'));
 
 // Configuration of Middlewares
-var strategy = new StormpathStrategy();
-app.use(favicon());
-app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true }));
 app.use(express.static(__dirname + '/public'));
@@ -44,21 +28,6 @@ cloudinary.config({
   api_secret: process.env.cloudkey 
 });
 app.use('/sayHello', router);
-app.use(cookieParser());
-passport.use(strategy);
-passport.serializeUser(strategy.serializeUser);
-passport.deserializeUser(strategy.deserializeUser);
-app.use(session({
-  secret: process.env.EXPRESS_SECRET || 'secret',
-  key: 'sid',
-  cookie: {secure: false},
-  saveUninitialized: true,
-  resave: true,
-}));
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(flash());
-dotenv.load();
 
 // Database
 var db;
@@ -73,8 +42,7 @@ MongoClient.connect(mongoUrl, function(err, database) {
 
 // Routes
 app.get('/', function (req, res) {
-  // res.render('index');
-  res.send('Hello ' + JSON.stringify(req.session));
+  res.render('index', {title: 'Home', user: req.user});
 });
 
 app.get('/login', function (req, res) {
