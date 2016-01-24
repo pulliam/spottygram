@@ -12,29 +12,44 @@
   	-moz-background-size: cover;
   	-o-background-size: cover;
   	background-size: cover;
-  	color: white;
-  	text-shadow: -4px 0 dodgerblue, 0 4px dodgerblue, 4px 0 dodgerblue, 0 -4px dodgerblue;
 }
 
 .ui.segment.center.aligned, .pusher {
 	background-color: transparent !important;
 	border-bottom: none;
 	height: inherit;
+	border: none;
 }
 
-.title-main {
+.title-main, .title-main-top {
 	text-align: right;
 	margin-right: 30px;
+	margin-top: 10px;
+}
+
+.title-main-top > h1 {
+	font-size: 60px;
+	font-family: 'Pacifico', cursive;
+	font-weight: lighter;
+	color: white;
+  	text-shadow: -4px 0 dodgerblue, 0 4px dodgerblue, 4px 0 dodgerblue, 0 -4px dodgerblue;
+}
+
+.fadeIn {
+	animation-duration: 4s !important;
+  	animation-delay: 1s !important;
 }
 
 .title-main > h1 {
 	font-size: 100px;
 	font-family: 'Pacifico', cursive;
 	font-weight: lighter;
+	color: white;
+  	text-shadow: -4px 0 dodgerblue, 0 4px dodgerblue, 4px 0 dodgerblue, 0 -4px dodgerblue;
 }
 
 .intro-text {
-	margin-top: 170px;
+	margin-top: 160px;
 	margin-right: 30px;
 	width: 42%;
 	float: right;
@@ -44,6 +59,8 @@
 	text-align: right;
 	font-weight: bolder;
 	font-family: 'Josefin Sans', sans-serif;
+	animation-duration: 4s;
+  	animation-delay: 3s;
 }
 
 .start-grams {
@@ -61,23 +78,61 @@
 	margin: 0px auto;
 }
 
-.email-us-form {
-	float: left;
-	width: 48%;
-}
-
 .flash-message {
 	font-family: arial;
 }
 
-#mc_embed_signup { 
-	background: #fff; 
-	float: right;
-	width: 48%;
-	font: 14px Helvetica,Arial,sans-serif;  
-}
-
 .login-form, .signup-form {
 	width: 400px;
-	margin: 40px auto;
+	margin-right: 70px;
+	margin-left: auto;
+	margin-top: 40px;
+}
+
+.signup-form {
+	height: 500px;
+}
+
+.centered.card {
+	color: white;
+	background-color: dodgerblue;
+}
+
+.see-comments:hover, i.icon.like.outline:hover, .likesheart:hover {
+    cursor: pointer;
+}
+
+.ui.segment.center.aligned{
+	border-bottom: none;
+	border-top: none;
+}
+
+.sorrymessage {
+	margin-top: 30px !important;
+	color: white;
+	font-family: 'Josefin Sans', sans-serif !important;
+}
+
+.sorrymessage > a {
+	text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white !important;
+}
+
+#mc_embed_signup, .email-us-form {
+	background-color: transparent !important;
+	width: 400px !important;
+	margin-right: 70px !important;
+	margin-left: auto !important;
+}
+
+#mc_embed_signup {
+	margin-top: 20px;
+}
+
+#mc_embed_signup_scroll {
+	height: 500px;
+}
+
+
+.ui.dividing.header {
+	background-color: rgba(255, 255, 255, 0.41) !important;
 }

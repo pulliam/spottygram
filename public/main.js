@@ -29,7 +29,7 @@ $('.comment-input').on('keypress', function(event) {
 			console.log(data);
 			$ul.empty();
 			data.forEach(function(comment){
-				$ul.append('<li>' + comment + '</li>');
+				$ul.append('<li style="list-style: none;"><i class="quote left icon"></i>' + comment + '<i class="quote right icon"></i></li>');
 			})
 		});
 	}

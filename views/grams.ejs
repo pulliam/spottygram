@@ -40,11 +40,10 @@
   <!-- //////////////// MENU ////////////////////-->
 
   <!-- //////////////// BODY ////////////////////-->
-    <div class="ui segment center aligned">
-    <h1>Spottygram</h1>
-    <p>The instagram for the cuttest puppies around</p>
+    <div class="title-main">
+      <h1>Spottygram</h1>
     </div>
-
+    <br>
     <!-- ..... POST ......-->
     <% posts.forEach(function(post){ %>
     <div class="ui centered card">
@@ -63,7 +62,7 @@
           <p><%= post.description %><br><br></p>
         </div>
 
-        <span class="right floated">
+        <span class="right floated likesheart">
           <i data-id="<%= post._id %>" class="heart outline like icon"></i>
           <span id="post_<%= post._id %>"><%= post.likes %></span> likes
         </span>
@@ -75,7 +74,7 @@
           <ul id="ul_<%= post._id %>">
             <% if (post.comments){ %>
               <% post.comments.forEach(function(comment){ %>
-              <li><%= comment %></li>
+              <li style="list-style: none;"><i class="quote left icon"></i><%= comment %><i class="quote right icon"></i></li>
               <% }) %> 
             <% } else { %>
               <li> No comments yet, be the first! </li>
@@ -86,7 +85,7 @@
 
       <div class="extra content">
         <div class="ui large transparent left icon input">
-          <i class="heart outline icon"></i>
+          <i class="comments outline icon"></i></i>
             <input data-id="<%= post._id %>" class="comment-input" type="text" placeholder="Add Comment...">
         </div>
       </div>

@@ -23822,8 +23822,8 @@ Floated Menu / Item
   background: #FFFFFF;
   padding: 0em;
   border: none;
-  border-radius: 0.28571429rem;
-  box-shadow: 0px 1px 3px 0px #D4D4D5, 0px 0px 0px 1px #D4D4D5;
+  border-radius: 0.48571429rem;
+  box-shadow: 0px 1px 3px 0px white, 0px 0px 0px 1px white;
   -webkit-transition: box-shadow 0.1s ease, -webkit-transform 0.1s ease;
   transition: box-shadow 0.1s ease, -webkit-transform 0.1s ease;
   transition: box-shadow 0.1s ease, transform 0.1s ease;
@@ -23922,8 +23922,9 @@ Floated Menu / Item
   -webkit-flex: 0 0 auto;
   -ms-flex: 0 0 auto;
   flex: 0 0 auto;
-  padding: 0em;
-  background: rgba(0, 0, 0, 0.05);
+  padding: 0.5em;
+  background: dodgerblue;
+  border-radius: 0.38571429rem;
 }
 
 .ui.cards > .card > .image > img,
@@ -23950,7 +23951,7 @@ Floated Menu / Item
   -ms-flex-positive: 1;
   flex-grow: 1;
   border: none;
-  border-top: 1px solid rgba(34, 36, 38, 0.1);
+  /*border-top: 1px solid rgba(34, 36, 38, 0.1);*/
   background: none;
   margin: 0em;
   padding: 1em 1em;
@@ -24054,7 +24055,7 @@ Floated Menu / Item
 .ui.cards > .card > .content > .description,
 .ui.card > .content > .description {
   clear: both;
-  color: rgba(0, 0, 0, 0.68);
+  color: white;
 }
 
 /*--------------
@@ -24078,7 +24079,7 @@ Floated Menu / Item
 .ui.cards > .card .meta,
 .ui.card .meta {
   font-size: 1em;
-  color: rgba(0, 0, 0, 0.4);
+  color: ghostwhite;
 }
 
 .ui.cards > .card .meta *,
@@ -24119,7 +24120,7 @@ Floated Menu / Item
 
 .ui.cards > .card > .content > a.header,
 .ui.card > .content > a.header {
-  color: rgba(0, 0, 0, 0.85);
+  color: white;
 }
 
 .ui.cards > .card > .content > a.header:hover,
@@ -24223,7 +24224,7 @@ Floated Menu / Item
   -webkit-flex-grow: 0;
   -ms-flex-positive: 0;
   flex-grow: 0;
-  border-top: 1px solid rgba(0, 0, 0, 0.05) !important;
+  border-top: 1px solid #7f8c8d !important;
   position: static;
   background: none;
   width: auto;
@@ -24231,7 +24232,7 @@ Floated Menu / Item
   padding: 0.75em 1em;
   top: 0em;
   left: 0em;
-  color: rgba(0, 0, 0, 0.4);
+  color: white;
   box-shadow: none;
   -webkit-transition: color 0.1s ease;
   transition: color 0.1s ease;
@@ -24239,12 +24240,12 @@ Floated Menu / Item
 
 .ui.cards > .card > .extra a:not(.ui),
 .ui.card > .extra a:not(.ui) {
-  color: rgba(0, 0, 0, 0.4);
+  color: white;
 }
 
 .ui.cards > .card > .extra a:not(.ui):hover,
 .ui.card > .extra a:not(.ui):hover {
-  color: #1e70bf;
+  color: white;
 }
 
 /*******************************
