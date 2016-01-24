@@ -43,24 +43,36 @@
   <br><br>
 
   <div id="all-contacts">
-    <div class="subscribe">
-      <h4 class="ui dividing header">Paw me in!</h4>
-      <form class="ui form subscribe-us" method="post" action="/subscribe" name="subscribeus">
-          <div class="field"><label>Your E-mail</label>
-              <input type="text" name="email" placeholder="Email">
+    <!--subscription-->
+    <div id="mc_embed_signup">
+      <form class="ui form subscribe-us validate" action="//spottygram.us12.list-manage.com/subscribe/post?u=42cf109497e4e3d672782775e&amp;id=99da8e64c0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank" novalidate>
+        <div id="mc_embed_signup_scroll">
+          <h4 class="ui dividing header">Subscribe to our mailing list!</h4>
+          <div class="mc-field-group">
+            <div class="field">
+              <label for="mce-EMAIL">Email Address</label>
+              <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
+            </div>
           </div>
-           <input class="ui button" type="submit">
+          <div id="mce-responses" class="clear">
+          <div class="response" id="mce-error-response" style="display:none"></div>
+          <div class="response" id="mce-success-response" style="display:none"></div>
+          </div>    
+          <div style="position: absolute; left: -5000px;" aria-hidden="true">
+            <input type="text" name="b_42cf109497e4e3d672782775e_99da8e64c0" tabindex="-1" value="">
+          </div><br>
+          <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="ui button">
+          </div>
+        </div>
       </form>
-      <% if (messageOfSubscription) { %>
-        <br>
-        <p class="flash-message">
-        <%= messageOfSubscription %>
-        </p>
-      <% } %>
     </div>
+    <script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';}(jQuery));var $mcj = jQuery.noConflict(true);
+    </script>
+    <!--/subscription-->
 
+    <!--contact form-->
     <div class="email-us-form">
-      <h4 class="ui dividing header">E-mail us!</h4>
+      <h4 class="ui dividing header">E-mail us and we will bark back!</h4>
       <form class="ui form sendusabark" method="post" action="/contact" name="contactus">
         <div class="two fields">
           <div class="field"><label>Name</label>
@@ -82,8 +94,8 @@
       </p>
       <% } %>
     </div>
+    <!--/contact form-->
   </div>
-  
   <!-- //////////////// BODY ////////////////////-->
 
 

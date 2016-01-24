@@ -12,19 +12,18 @@
 	margin: 0px auto;
 }
 
-.subscribe {
-	float: right;
-	width: 48%;
-}
-
 .email-us-form {
 	float: left;
 	width: 48%;
 }
 
 .flash-message {
-	color: red;
-	font-size: 25px;
-	font-weight: bold;
 	font-family: arial;
+}
+
+#mc_embed_signup { 
+	background: #fff; 
+	float: right;
+	width: 48%;
+	font: 14px Helvetica,Arial,sans-serif;  
 }
