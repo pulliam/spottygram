@@ -43,33 +43,39 @@
   <br><br>
 
   <div id="all-contacts">
-  <div class="subscribe">
-    <h4 class="ui dividing header">Paw me in!</h4>
-    <form class="ui form">
-        <div class="field">
-            <input type="text" placeholder="Email">
-        </div>
-         <input class="ui button" type="submit">
-    </form>
-  </div>
+    <div class="subscribe">
+      <h4 class="ui dividing header">Paw me in!</h4>
+      <form class="ui form">
+          <div class="field">
+              <input type="text" placeholder="Email">
+          </div>
+           <input class="ui button" type="submit">
+      </form>
+    </div>
 
-  <div class="email-us-form">
-    <h4 class="ui dividing header">E-mail us!</h4>
-    <form class="ui form" method="post" action="/contact" name="contactus">
-      <div class="two fields">
-        <div class="field"><label>Name</label>
-          <input type="text" name="name" placeholder="Name" id="name">
+    <div class="email-us-form">
+      <h4 class="ui dividing header">E-mail us!</h4>
+      <form class="ui form sendusabark" method="post" action="/contact" name="contactus">
+        <div class="two fields">
+          <div class="field"><label>Name</label>
+            <input type="text" name="name" placeholder="Name" id="name">
+          </div>
+          <div class="field"><label>E-mail</label>
+            <input type="text" name="email" placeholder="E-mail" id="email">
+          </div>
         </div>
-        <div class="field"><label>E-mail</label>
-          <input type="text" name="email" placeholder="E-mail" id="email">
+        <div class="field"><label>Your Message</label>
+          <textarea name="message" placeholder="Message" id="message"></textarea>
         </div>
-      </div>
-      <div class="field"><label>Your Message</label>
-        <textarea name="message" placeholder="Message" id="message"></textarea>
-      </div>
-      <input class="ui button" type="submit" value="Send" id="submit">
-    </form>
-  </div>
+        <input class="ui button" type="submit" value="Send" id="submit">
+      </form>
+        <% if (messageOfEmail) { %>
+        <br>
+        <p class="flash-message">
+        <%= messageOfEmail %>
+        </p>
+        <% } %>
+    </div>
   </div>
   
   <!-- //////////////// BODY ////////////////////-->

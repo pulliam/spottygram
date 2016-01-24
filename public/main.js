@@ -95,4 +95,40 @@ $('.ui.form.creategram')
     on     : 'blur',
   });
 
+$('.ui.form.sendusabark')
+  .form({
+    name: {
+      identifier  : 'name',
+      rules: [
+        {
+          type   : 'empty',
+          prompt : 'Please enter your name'
+        }
+      ]
+    },
+    description: {
+      identifier  : 'email',
+      rules: [
+        {
+          type   : 'empty',
+          prompt : 'Please enter your email'
+        }
+      ]
+    },
+    location: {
+      identifier : 'message',
+      rules: [
+        {
+          type   : 'empty',
+          prompt : 'Please enter a message'
+        }
+      ]
+    }
+  }, 
+  {
+    inline : true,
+    on     : 'blur',
+  });
+
+
 });

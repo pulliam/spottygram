@@ -1,5 +1,6 @@
 .ui.bottom.attached.segment.pushable {
 	background-color: white;
+	border-bottom: none;
 }
 
 .pusher > h1 {
@@ -19,4 +20,10 @@
 .email-us-form {
 	float: left;
 	width: 48%;
+}
+
+.flash-message {
+	color: red;
+	font-size: 25px;
+	font-weight: bold;
 }

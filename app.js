@@ -112,7 +112,7 @@ app.get('/search', function (req, res) {
 });
 
 app.get('/contact', function (req, res) {
-    res.render('contact') 
+    res.render('contact', { messageOfEmail: 0 }) 
 });
 
 app.post('/contact', function (req, res) {
@@ -139,7 +139,8 @@ app.post('/contact', function (req, res) {
         res.json({yo: 'error'});
     }else{
         console.log('Message sent: ' + info.response);
-        res.json({yo: info.response});
+        // res.render('contact', { messageOfEmail: req.flash('Sent!') });
+        res.render('contact', { messageOfEmail: 'Your message was sent!' });
     };
   });
 });
