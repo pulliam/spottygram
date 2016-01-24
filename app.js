@@ -2,6 +2,8 @@
 var express = require('express');
 var app = express();
 var fs = require('fs');
+var MongoClient = require('mongodb').MongoClient;
+var ObjectId = require('mongodb').ObjectId;
 var bodyParser = require('body-parser');
 var multipart = require('connect-multiparty');
 var multipartMiddleware = multipart();
@@ -10,13 +12,29 @@ var http = require('http');
 var util = require('util');
 var cloudinary = require('cloudinary');
 var nodemailer = require('nodemailer');
-var _  = require("underscore");
+var _ = require("underscore");
 var router = express.Router();
 var smtpTransport = require('nodemailer-smtp-transport');
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
+var stormpath = require('stormpath');
+var path = require('path');
+var favicon = require('static-favicon');
+var logger = require('morgan');
+var passport = require('passport');
+var StormpathStrategy = require('passport-stormpath');
+var session = require('express-session');
+var flash = require('connect-flash');
+var router = express.Router();
+fs.createReadStream('.sample-env')
+  .pipe(fs.createWriteStream('.env'));
 
-// Configuration
+// Configuration of Middlewares
+var strategy = new StormpathStrategy();
+app.use(favicon());
+app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({extended: true }));
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/bower_components'));
 app.set('view engine', 'ejs');
@@ -26,21 +44,41 @@ cloudinary.config({
   api_secret: process.env.cloudkey 
 });
 app.use('/sayHello', router);
+app.use(cookieParser());
+passport.use(strategy);
+passport.serializeUser(strategy.serializeUser);
+passport.deserializeUser(strategy.deserializeUser);
+app.use(session({
+  secret: process.env.EXPRESS_SECRET || 'secret',
+  key: 'sid',
+  cookie: {secure: false},
+  saveUninitialized: true,
+  resave: true,
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+dotenv.load();
 
 // Database
 var db;
-var MongoClient = require('mongodb').MongoClient;
-var ObjectId = require('mongodb').ObjectId;
 var mongoUrl = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/spottygram';
 MongoClient.connect(mongoUrl, function(err, database) {
   if (err) { throw err; }
   db = database;
-  process.on('exit', db.close);
+  process.on('exit', function() {
+    db.close();
+  });
 });
 
 // Routes
 app.get('/', function (req, res) {
-    res.render('index') 
+  // res.render('index');
+  res.send('Hello ' + JSON.stringify(req.session));
+});
+
+app.get('/login', function (req, res) {
+  res.render('login');
 });
 
 app.get('/all', function (req, res) {
