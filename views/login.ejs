@@ -22,6 +22,9 @@
       <a class="item"><i class="sidebar icon"></i>Menu</a>
       <div class="right menu">
         <a href="/new" class="item">Create Gram</a>
+        <% if (user) { %>
+        <a href="/logout" class="item">Log Out</a>
+        <% } %>
       </div>
     </div>
 
@@ -31,17 +34,39 @@
         <a href="/all" class="item">Grams</a>
         <a href="/top" class="item">Top One</a>
         <a href="/contact" class="item">Bark at Us</a>
+        <a href="/login" class="item">Log In/Sign Up</a>
       </div>
   <!-- //////////////// MENU ////////////////////-->
 
   <!-- //////////////// BODY ////////////////////-->
-    <div class="ui segment center aligned">
-      <form action="" method="post">
+  <div class="ui form login-form">
+    <h4 class="ui dividing header">Log In to Creat Grams!</h4>
+    <form action="/login" method="post">
+      <div class="field"><label>Username</label>
         <input type="text" name="username" placeholder="Username">
+      </div>
+      <div class="field"><label>Password</label>
         <input type="password" name="password" placeholder="Password">
-        <input type="submit">
-      </form>
-    </div>
+      </div>
+      <input type="submit" value="Log In">
+    </form>
+  </div>
+
+  <div class="ui form signup-form">
+    <h4 class="ui dividing header">Sign Up to Spottygram!</h4>
+    <form action="/user" method="POST">
+      <div class="field"><label>Username</label>
+        <input name="username" type="text">
+      </div>
+      <div class="field"><label>Password</label>
+        <input name="password" type="password">
+      </div>
+      <div class="field"><label>Password Confirmation</label>
+        <input name="password_confirm" type="password">
+      </div>
+      <input type="submit" value="Sign Up">
+    </form>
+  </div>
   <!-- //////////////// BODY ////////////////////-->
 
 

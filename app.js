@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var multipart = require('connect-multiparty');
 var multipartMiddleware = multipart();
 var multiparty = require('multiparty');
+var request = require('request');
 var http = require('http');
 var util = require('util');
 var cloudinary = require('cloudinary');
@@ -15,6 +16,13 @@ var nodemailer = require('nodemailer');
 var _ = require("underscore");
 var router = express.Router();
 var smtpTransport = require('nodemailer-smtp-transport');
+var session = require('express-session');
+var cookieParser = require('cookie-parser');
+var flash = require('connect-flash');
+var methodOverride = require('method-override');
+var bcrypt = require('bcrypt');
+var MongoStore = require('connect-mongo')(session);
+var mongoUrl = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/spottygram';
 
 // Configuration of Middlewares
 app.use(bodyParser.json());
@@ -28,10 +36,19 @@ cloudinary.config({
   api_secret: process.env.cloudkey 
 });
 app.use('/sayHello', router);
+app.use(cookieParser('spottysecret'));
+app.use(session({
+  cookie: { maxAge: 80000 },
+  secret: 'secret',
+  resave: false,
+  saveUninitialized: false,
+  store: new MongoStore({url: mongoUrl})
+}));
+app.use(flash());
+app.use(methodOverride('_method'));
 
 // Database
 var db;
-var mongoUrl = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/spottygram';
 MongoClient.connect(mongoUrl, function(err, database) {
   if (err) { throw err; }
   db = database;
@@ -40,20 +57,94 @@ MongoClient.connect(mongoUrl, function(err, database) {
   });
 });
 
+//Sessions Authentication
+var authenticate = function(username, password, callback) {
+  db.collection('sessions').findOne({ username: username }, 
+    function(err, data) { 
+      if (err) { throw err; }
+      console.log(data);
+      bcrypt.compare( password, data.password_digest, function(isMatch) {
+      console.log( 'password is ' + data.password_digest );
+      if (isMatch) {
+        callback(data);
+        console.log('password match')
+      } else {
+        callback(false);
+      }
+    })
+  });
+};
+
 // Routes
 app.get('/', function (req, res) {
-  res.render('index', {title: 'Home', user: req.user});
+  var currentuser = req.session.username;
+  if (currentuser){
+    res.render('index', {user: currentuser});
+  } else {
+    res.render('index', {user: 0});
+  }
 });
 
 app.get('/login', function (req, res) {
-  res.render('login');
+  var currentuser = req.session.username;
+  if (currentuser){
+    res.render('alreadylogged', {user: currentuser});
+  } else {
+    res.render('login', {user: 0});
+  }
+});
+
+app.post('/login', function(req, res) {
+  console.log('username: ' + req.body.username);
+  console.log('password: ' + req.body.password);
+
+  authenticate(req.body.username, req.body.password, 
+    function(user){
+      if (user) {
+          req.session.username = user.username;
+          req.session.userID = user._id;
+          res.redirect('/');
+      } else {
+          res.redirect('/login');
+      }
+    });
+});
+
+app.post('/user', function(req, res){
+  if (req.body.password.length > 7 && req.body.password === req.body.password_confirm) {
+    var password = bcrypt.hashSync(req.body.password, 8);
+    var username = req.body.username;
+    db.collection('sessions').insert({username: username, password: password}, 
+      function(err, result){
+        console.log(result);
+      });
+    authenticate(req.body.username, req.body.password, function(user){
+      if (user){
+        req.session.username = user.username;
+        req.session.userID = user._id;
+        res.redirect('/all');
+      } else {
+        res.redirect('/');
+      }
+    });
+  }
+});
+
+app.get('/logout', function(req, res) {
+  req.session.username = null;
+  req.session.userId = null;
+  res.redirect('/login');
 });
 
 app.get('/all', function (req, res) {
-    db.collection('posts').find().sort({lastmodified: -1}).toArray(function(err, results){
-    console.log(results);
-    res.render('grams', {posts: results}); //render first 10
-    })
+  var currentuser = req.session.username;
+  db.collection('posts').find().sort({lastmodified: -1}).toArray(function(err, results){
+    if (currentuser){
+       res.render('grams', {posts: results, user: currentuser});
+    } else {
+       res.render('grams', {posts: results, user: 0}); ;
+    }
+  })
 });
 
 app.post('/all', multipartMiddleware, function (req, res) {
@@ -103,22 +194,32 @@ app.post('/api/likes', function(req, res) {
 });
 
 app.get('/new', function (req, res) {
-    res.render('create') 
+  var currentuser = req.session.username;
+  if (currentuser){
+     res.render('create', {user: currentuser});
+  } else {
+     res.render('needtologin', {user: 0});
+  }
 });
 
 app.get('/top', function (req, res) {
-    db.collection('posts').find().sort({likes: -1}).limit(1).toArray(function(err, results){
-    console.log(results);
-    res.render('top', {posts: results}); //render first 10
-    }) 
-});
-
-app.get('/search', function (req, res) {
-    res.render('search')
+  var currentuser = req.session.username;
+  db.collection('posts').find().sort({likes: -1}).limit(1).toArray(function(err, results){
+    if (currentuser){
+      res.render('top', {posts: results, user: currentuser}); 
+    } else {
+      res.render('top', {posts: results, user: 0});
+    }
+  }) 
 });
 
 app.get('/contact', function (req, res) {
-    res.render('contact', { messageOfEmail: 0, messageOfSubscription: 0 }) 
+  var currentuser = req.session.username;
+  if (currentuser){
+    res.render('contact', { messageOfEmail: 0, messageOfSubscription: 0, user: currentuser });
+  } else {
+    res.render('contact', { messageOfEmail: 0, messageOfSubscription: 0, user: 0 });
+  }
 });
 
 app.post('/contact', function (req, res) {

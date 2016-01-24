@@ -32,6 +32,7 @@
     "express-session": "^1.13.0",
     "fullpage.js": "^2.7.6",
     "kerberos": "0.0.18",
+    "method-override": "^2.3.5",
     "mongodb": "^2.1.4",
     "mongoose": "^4.3.6",
     "morgan": "^1.6.1",

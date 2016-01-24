@@ -18,10 +18,13 @@
 </head>
 <body>
   <!-- //////////////// MENU ////////////////////-->
-    <div class="ui top attached demo menu inverted blue">
+     <div class="ui top attached demo menu inverted blue">
       <a class="item"><i class="sidebar icon"></i>Menu</a>
       <div class="right menu">
         <a href="/new" class="item">Create Gram</a>
+        <% if (user) { %>
+        <a href="/logout" class="item">Log Out</a>
+        <% } %>
       </div>
     </div>
 
@@ -31,6 +34,7 @@
         <a href="/all" class="item">Grams</a>
         <a href="/top" class="item">Top One</a>
         <a href="/contact" class="item">Bark at Us</a>
+        <a href="/login" class="item">Log In/Sign Up</a>
       </div>
   <!-- //////////////// MENU ////////////////////-->
 
