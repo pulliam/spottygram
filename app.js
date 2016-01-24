@@ -112,7 +112,7 @@ app.get('/search', function (req, res) {
 });
 
 app.get('/contact', function (req, res) {
-    res.render('contact', { messageOfEmail: 0 }) 
+    res.render('contact', { messageOfEmail: 0, messageOfSubscription: 0 }) 
 });
 
 app.post('/contact', function (req, res) {
@@ -140,7 +140,37 @@ app.post('/contact', function (req, res) {
     }else{
         console.log('Message sent: ' + info.response);
         // res.render('contact', { messageOfEmail: req.flash('Sent!') });
-        res.render('contact', { messageOfEmail: 'Your message was sent!' });
+        res.render('contact', { messageOfEmail: 'Your message was sent!', messageOfSubscription: 0 });
+    };
+  });
+});
+
+app.post('/subscribe', function (req, res) {
+  var transporter = nodemailer.createTransport(smtpTransport({
+    service: 'Gmail',
+    auth: {
+      user: "spottygram@gmail.com",
+      pass: process.env.spottygrampassword
+    }
+  }));
+
+  var messagetext = 'Hello, \n\n Welcome to Spottygram. We are delighted you enjoyed our website enough to subscribe. We will update you with the coolest news thourgh here. For now, keep on scrolling Spottygram! \n\n Thank you! \n\n Spotty.';
+
+  var mailOptions = {
+    from: 'spottygram@gmail.com', 
+    to: req.body.email, 
+    subject: 'Welcome to SpottyGram!', 
+    text: messagetext
+  };
+
+  transporter.sendMail(mailOptions, function(error, info){
+    if(error){
+        console.log(error);
+        res.json({yo: 'error'});
+    }else{
+        console.log('Message sent: ' + info.response);
+        // res.render('contact', { messageOfEmail: req.flash('Sent!') });
+        res.render('contact', { messageOfEmail: 0, messageOfSubscription: 'Thanks for Signing Up!'});
     };
   });
 });

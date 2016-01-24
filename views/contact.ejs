@@ -45,12 +45,18 @@
   <div id="all-contacts">
     <div class="subscribe">
       <h4 class="ui dividing header">Paw me in!</h4>
-      <form class="ui form">
-          <div class="field">
-              <input type="text" placeholder="Email">
+      <form class="ui form subscribe-us" method="post" action="/subscribe" name="subscribeus">
+          <div class="field"><label>Your E-mail</label>
+              <input type="text" name="email" placeholder="Email">
           </div>
            <input class="ui button" type="submit">
       </form>
+      <% if (messageOfSubscription) { %>
+        <br>
+        <p class="flash-message">
+        <%= messageOfSubscription %>
+        </p>
+      <% } %>
     </div>
 
     <div class="email-us-form">
@@ -69,12 +75,12 @@
         </div>
         <input class="ui button" type="submit" value="Send" id="submit">
       </form>
-        <% if (messageOfEmail) { %>
-        <br>
-        <p class="flash-message">
-        <%= messageOfEmail %>
-        </p>
-        <% } %>
+      <% if (messageOfEmail) { %>
+      <br>
+      <p class="flash-message">
+      <%= messageOfEmail %>
+      </p>
+      <% } %>
     </div>
   </div>
   
