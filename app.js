@@ -38,7 +38,7 @@ cloudinary.config({
 app.use('/sayHello', router);
 app.use(cookieParser('spottysecret'));
 app.use(session({
-  cookie: { maxAge: 80000 },
+  cookie: { maxAge: 60 * 60 * 24 * 365 * 10 },
   secret: 'secret',
   resave: true,
   saveUninitialized: false,

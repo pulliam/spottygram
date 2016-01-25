@@ -66,7 +66,7 @@
       <% posts.forEach(function(post){ %>
         <div class="ui image this-image-profile">
           <img class="ui centered image redo-image" src="<%= post.image %>">
-          <div class="ui bottom attached label"><%= post.name %>, from <%= post.location %><br>
+          <div class="ui label" style="border: 1px white solid !important;">
           "<%= post.description %>"<br>
           <%= post.likes %> Likes</div>
         </div>
