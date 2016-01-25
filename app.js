@@ -40,7 +40,7 @@ app.use(cookieParser('spottysecret'));
 app.use(session({
   cookie: { maxAge: 80000 },
   secret: 'secret',
-  resave: false,
+  resave: true,
   saveUninitialized: false,
   store: new MongoStore({url: mongoUrl})
 }));
@@ -58,17 +58,18 @@ MongoClient.connect(mongoUrl, function(err, database) {
 });
 
 //Sessions Authentication
-var authenticate = function(username, password, callback) {
-  db.collection('sessions').findOne({ username: username }, 
+var authenticate = function(name, password, callback) {
+  db.collection('sessions').findOne({"username": name}, 
     function(err, data) { 
-      if (err) { throw err; }
-      console.log(data);
-      bcrypt.compare( password, data.password_digest, function(isMatch) {
-      console.log( 'password is ' + data.password_digest );
+      if (err) { console.log(err); }
+      console.log('my data is: \n' + data);
+      bcrypt.compare( password, data.password, function(isMatch) {
+      console.log( 'password is ' + data.password + '\nother is ' + password );
       if (isMatch) {
         callback(data);
-        console.log('password match')
+        console.log('my data after match: \n' + data);
       } else {
+        console.log('Didnt match database');
         callback(false);
       }
     })
@@ -98,8 +99,7 @@ app.post('/login', function(req, res) {
   console.log('username: ' + req.body.username);
   console.log('password: ' + req.body.password);
 
-  authenticate(req.body.username, req.body.password, 
-    function(user){
+  authenticate(req.body.username, req.body.password, function(user){
       if (user) {
           req.session.username = user.username;
           req.session.userID = user._id;
@@ -111,14 +111,28 @@ app.post('/login', function(req, res) {
 });
 
 app.post('/user', function(req, res){
-  if (req.body.password.length > 7 && req.body.password === req.body.password_confirm) {
+  if (req.body.password === req.body.password_confirm) {
+
+    var beforeencrypted = req.body.password;
     var password = bcrypt.hashSync(req.body.password, 8);
     var username = req.body.username;
+
+    console.log('password is ' + beforeencrypted + 
+      ' encrypted it is ' + password + ' and username is ' + username
+      + ' req is ' + req + ' and res is ' + res + ' and password_confirm is ' +
+      req.body.password_confirm);
+
     db.collection('sessions').insert({username: username, password: password}, 
       function(err, result){
-        console.log(result);
-      });
+        console.log('this was added in the database: \n' + result);
+      }
+    );
+
     authenticate(req.body.username, req.body.password, function(user){
+
+      console.log('body.username: ' + req.body.username + '\nbody.password: ' +
+       req.body.password)
+
       if (user){
         req.session.username = user.username;
         req.session.userID = user._id;
@@ -230,56 +244,29 @@ app.post('/contact', function (req, res) {
       pass: process.env.spottygrampassword
     }
   }));
-
   var messagetext = 'Hello from: ' + req.body.name + '\n\n' + 'User e-mail: ' + req.body.email + '\n\n' + 'Message: \n' + req.body.message;
-
   var mailOptions = {
     from: 'spottygram@gmail.com', 
     to: 'spottygram@gmail.com', 
     subject: 'Contact from User', 
     text: messagetext
   };
-
   transporter.sendMail(mailOptions, function(error, info){
     if(error){
-        console.log(error);
-        res.json({yo: 'error'});
+      console.log(error);
+      res.json({yo: 'error'});
     }else{
+      var currentuser = req.session.username;
+      if (currentuser){
         console.log('Message sent: ' + info.response);
-        // res.render('contact', { messageOfEmail: req.flash('Sent!') });
-        res.render('contact', { messageOfEmail: 'Your message was sent!', messageOfSubscription: 0 });
+        res.render('contact', { messageOfEmail: 'Your message was sent!', messageOfSubscription: 0, user: currentuser });
+      } else {
+        console.log('Message sent: ' + info.response);
+        res.render('contact', { messageOfEmail: 'Your message was sent!', messageOfSubscription: 0, user: 0 });
+      }  
     };
   });
 });
 
-app.post('/subscribe', function (req, res) {
-  var transporter = nodemailer.createTransport(smtpTransport({
-    service: 'Gmail',
-    auth: {
-      user: "spottygram@gmail.com",
-      pass: process.env.spottygrampassword
-    }
-  }));
-
-  var messagetext = 'Hello, \n\n Welcome to Spottygram. We are delighted you enjoyed our website enough to subscribe. We will update you with the coolest news thourgh here. For now, keep on scrolling Spottygram! \n\n Thank you! \n\n Spotty.';
-
-  var mailOptions = {
-    from: 'spottygram@gmail.com', 
-    to: req.body.email, 
-    subject: 'Welcome to SpottyGram!', 
-    text: messagetext
-  };
-
-  transporter.sendMail(mailOptions, function(error, info){
-    if(error){
-        console.log(error);
-        res.json({yo: 'error'});
-    }else{
-        console.log('Message sent: ' + info.response);
-        // res.render('contact', { messageOfEmail: req.flash('Sent!') });
-        res.render('contact', { messageOfEmail: 0, messageOfSubscription: 'Thanks for Signing Up!'});
-    };
-  });
-});
 
 app.listen(process.env.PORT || 3000);
