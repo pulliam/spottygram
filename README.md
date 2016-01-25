@@ -19,22 +19,27 @@
 * Collection: posts
 
 ## Current
-* 1) Start basic look and routes set up
-* 2) Install dependencies. 
-* 3) Create Database
+First Part
+- [x] 1) Start basic look and routes set up
+- [x] 2) Install dependencies. 
+- [x] 3) Create Database
+Final Part
+- [ ] 4) Have sessions properly working
+- [ ] 5) Fix password authentication
 
 ## Sprint
-* 1) Have all the posts running and displaying
-* 2) Have a likes system setup 
-* 3) Have a page to show the most liked post currently
-* 4) Add a geolocation API
-* 5) Have a e-mail system working so visitors can susbscribe to news and send me a e-mail through page's form
-* 6) Have a upload image feature (Not only URL address to add image)
-* 7) Have a nice built and clean code of a Node app
-* 8) Have it deployed on heroku
+- [x] 1) Have all the posts running and displaying 
+- [x] 2) Have a likes system setup 
+- [x] 3) Have a page to show the most liked post currently
+- [x] 4) Have comments working
+- [x] 5) Have a e-mail system working so visitors can susbscribe to news and send me a e-mail through page's form
+- [x] 6) Have a upload image feature (Not only URL address to add image)
+- [x] 7) Have a nice built and clean code of a Node app
+- [ ] 8) Have sessions properly working
+- [ ] 8) Have it deployed on heroku
 
 ## Backlog
-* 1) Make sessions and profile pages
-* 2) Facebook or instagram API
-* 3) Npm to track who visited my page
-* 4) A very nice front-end styling with scrolls features etc.
+- [ ] Make sessions and profile pages
+- [ ] Facebook or instagram API
+- [ ] Npm to track who visited my page
+- [x] A very nice front-end styling with scrolls features etc.
