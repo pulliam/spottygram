@@ -4,6 +4,7 @@
   "description": "* User Stories: https://trello.com/b/eVudfq72/final-project * Option 1: Analytics system application. Grab other websites (that request, once they are my users) IP address of their visitors, give back that information in a data chart, contanining location of most of their visitors etc.  * Option 2: Dog's Social Network like facebook but for dogs that want to be social celebrities. Or something else named Spottyfly. * Option 3: Garavello's Website (real company for jewlery). * Wireframes:  ![untitled_page_ 5 6](https://cloud.githubusercontent.com/assets/14362520/12455458/cd565f3a-bf69-11e5-8cf6-8ae4d4668d77.png) _________________________ ![untitled_page 1](https://cloud.githubusercontent.com/assets/14362520/12455545/1e44ae38-bf6a-11e5-89b6-808fc35c9da4.png) ![untitled_page_ 1 2](https://cloud.githubusercontent.com/assets/14362520/12455546/200917ae-bf6a-11e5-907c-be7cb72518d0.png) ![untitled_page_ 2 3](https://cloud.githubusercontent.com/assets/14362520/12455551/214a9c28-bf6a-11e5-8a53-f7c2ce120406.png)",
   "main": "index.js",
   "scripts": {
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
