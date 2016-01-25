@@ -57,8 +57,8 @@
 
       <div class="content">
         <div class="right floated meta"><%= post.location %></div>
-        <img class="ui avatar image" src="http://s20.postimg.org/x5fpt3z15/IMG_0417.jpg"> 
-        <%= post.name %>
+        <img class="ui avatar image" src="<%= post.avatar %>"> 
+        <%= post.byuser %>
       </div>
 
       <div class="image"><img src="<%= post.image %>"></div>
@@ -66,7 +66,8 @@
       <div class="content">
 
         <div class="description">
-          <p><%= post.description %><br><br></p>
+          <p><%= post.name %> says: "
+          <%= post.description %>"<br><br></p>
         </div>
 
         <span class="right floated likesheart">

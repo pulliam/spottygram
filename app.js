@@ -119,19 +119,19 @@ app.post('/user', multipartMiddleware, function (req, res) {
   if (req.body.password === req.body.password_confirm) {
     var password = bcrypt.hashSync(req.body.password, 8);
     var username = req.body.username;
-    var myfile = req.files["image"]["path"]
-    console.log('my file is ' + myfile);
+    var myfile = req.files["image"]["path"];
+
     cloudinary.uploader.upload(myfile, function(result) { 
-      console.log(result["url"])
+      console.log(result["url"]);
       db.collection('sessions').insert({
         username: username, 
         password: password, 
-        image: result["url"]}, 
-      function(err, result){
-        console.log('this was added in the database: \n' + JSON.stringify(result));
+        image: result["url"]
+      },function(err, result){
+          console.log('this was added in the database: \n' + JSON.stringify(result));
       });
     });
-    res.redirect('/confirm_signup')
+    res.render('confirm_signup');
   } else {
     console.log('Wrong password confirmation');
   }
@@ -170,13 +170,14 @@ app.get('/all', function (req, res) {
     if (currentuser){
        res.render('grams', {posts: results, user: currentuser});
     } else {
-       res.render('grams', {posts: results, user: 0}); ;
+       res.render('grams', {posts: results, user: 0});
     }
   })
 });
 
 app.post('/all', multipartMiddleware, function (req, res) {
   var currentuser = req.session.username;
+  var currentphoto = req.session.photo;
   var myfile = req.files["image"]["path"]
   var uploaded = cloudinary.uploader.upload(myfile, function(result) { 
     console.log(result["url"]) 
@@ -188,7 +189,8 @@ app.post('/all', multipartMiddleware, function (req, res) {
       likes: 0,
       comments: [],
       lastmodified: new Date(),
-      byuser: currentuser
+      byuser: currentuser,
+      avatar: currentphoto
     },
     function(err, result){
       res.redirect('/all');
