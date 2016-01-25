@@ -23,6 +23,7 @@ var methodOverride = require('method-override');
 var bcrypt = require('bcrypt');
 var MongoStore = require('connect-mongo')(session);
 var mongoUrl = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/spottygram';
+var cool = require('cool-ascii-faces');
 
 // Configuration of Middlewares
 app.use(bodyParser.json());
@@ -80,6 +81,10 @@ var authenticate = function(username, password, callback) {
 };
 
 // Routes
+app.get('/cool', function(request, response) {
+  response.send(cool());
+});
+
 app.get('/', function (req, res) {
   var currentuser = req.session.username;
   if (currentuser){
