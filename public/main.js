@@ -128,7 +128,82 @@ $('.ui.form.sendusabark')
   {
     inline : true,
     on     : 'blur',
-  });
+});
+
+$('.ui.form.red.login-form')
+  .form({
+    username: {
+      identifier  : 'username',
+      rules: [
+        {
+          type   : 'empty',
+          prompt : 'Please enter your username'
+        }
+      ]
+    },
+    password: {
+      identifier  : 'password',
+      rules: [
+        {
+          type   : 'empty',
+          prompt : 'Please enter your password'
+        }
+      ]
+    }
+  }, 
+  {
+    inline : true,
+    on     : 'blur',
+  }
+);
+
+$('.ui.form.signup-form')
+  .form({
+    usernname: {
+      identifier  : 'username',
+      rules: [
+        {
+          type   : 'empty',
+          prompt : 'Please enter your username'
+        }
+      ]
+    },
+    password: {
+      identifier  : 'password',
+      rules: [
+        {
+          type   : 'empty',
+          prompt : 'Please enter your password'
+        }
+      ]
+    },
+    password_confirmation: {
+      identifier  : 'password_confirm',
+      rules: [
+        {
+          type   : 'empty',
+          prompt : 'Please enter a password confirmation'
+        }
+      ]
+    },
+    image: {
+      identifier  : 'image',
+      rules: [
+        {
+          type   : 'empty',
+          prompt : 'Please select a profile picture'
+        }
+      ]
+    }
+  }, 
+  {
+    inline : true,
+    on     : 'blur',
+  }
+);
+
+
+
 
 
 });
