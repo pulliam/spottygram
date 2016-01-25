@@ -24,6 +24,8 @@
         <a href="/new" class="item">Create Gram</a>
         <% if (user) { %>
         <a href="/logout" class="item">Log Out</a>
+        <% } else { %>
+        <a href="/login" class="item">Log In</a>
         <% } %>
       </div>
     </div>
@@ -34,7 +36,12 @@
         <a href="/all" class="item">Grams</a>
         <a href="/top" class="item">Top One</a>
         <a href="/contact" class="item">Bark at Us</a>
+        <% if (user) { %>
+        <a href="/userprofile" class="item">My Profile</a>
+        <a href="/logout" class="item">Log Out</a>
+        <% } else { %>
         <a href="/login" class="item">Log In/Sign Up</a>
+        <% } %>
       </div>
   <!-- //////////////// MENU ////////////////////-->
 

@@ -18,12 +18,14 @@
 </head>
 <body>
   <!-- //////////////// MENU ////////////////////-->
-    <div class="ui top attached demo menu inverted blue">
+   <div class="ui top attached demo menu inverted blue">
       <a class="item"><i class="sidebar icon"></i>Menu</a>
       <div class="right menu">
         <a href="/new" class="item">Create Gram</a>
         <% if (user) { %>
         <a href="/logout" class="item">Log Out</a>
+        <% } else { %>
+        <a href="/login" class="item">Log In</a>
         <% } %>
       </div>
     </div>
@@ -34,7 +36,12 @@
         <a href="/all" class="item">Grams</a>
         <a href="/top" class="item">Top One</a>
         <a href="/contact" class="item">Bark at Us</a>
+        <% if (user) { %>
+        <a href="/userprofile" class="item">My Profile</a>
+        <a href="/logout" class="item">Log Out</a>
+        <% } else { %>
         <a href="/login" class="item">Log In/Sign Up</a>
+        <% } %>
       </div>
   <!-- //////////////// MENU ////////////////////-->
 
@@ -58,6 +65,12 @@
 
   <div class="ui form signup-form">
     <h4 class="ui dividing header">Sign Up to Spottygram!</h4>
+    <!-- Image form -->
+    <form name="upload" action="/user" method="post" enctype="multipart/form-data">
+      <div class="field"><label>Select an image to upload:</label>
+        <input type="file" name="image" /> 
+      </div>
+    <!--/Image form -->
     <form action="/user" method="POST">
       <div class="field"><label>Username</label>
         <input name="username" type="text">

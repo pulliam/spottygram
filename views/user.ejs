@@ -15,7 +15,6 @@
   <script src="/fullpage.js/vendors/jquery.slimscroll.min.js"></script>
   <link rel="stylesheet" type="text/css" href="/style.css">
   <script src="/main.js"></script>
-  <link rel="stylesheet" href="animate.css">
 </head>
 <body>
   <!-- //////////////// MENU ////////////////////-->
@@ -47,20 +46,35 @@
   <!-- //////////////// MENU ////////////////////-->
 
   <!-- //////////////// BODY ////////////////////-->
-    <div class="ui segment center aligned main">
-      <% if (user) { %>
-      <h2>Welcome Back <em><%= user %></em></h2>
-      <% } %>
-      <div class="title-main animated fadeIn">
-        <h1>Spottygram</h1>
-      </div>
-      <div class="intro-text animated fadeInDown">
-        <p>Welcome pups, my name is Spotty.<br>
-        My humans are awesome, but no one takes better selfies than us dogs. So Spottygram has arrived. Woof! Now excuse me because I need to finish some selfies here. Bark at you later!</p>
-        <br>
-        <button class="ui button start-grams">See today's top photos</button>
+  <div class="title-main-top">
+    <h1>Spottygram</h1>
+  </div>
+
+    <div class="profile-user">
+      <img class="ui small image image-profile" src="<%= image %>">
+      <br>
+      <div class="description-profile">
+      <h2>Hello <em><%= user %></em></h2>
+      <p>Thanks for being our User. Feel free to Gram as much as you like! Enjoy!</p>
+      <button class="ui button start-grams">Start Gramming!</button>
       </div>
     </div>
+
+    <div class="profile-user-posts">
+      <h2>Your Posts</h2>
+      <ul>
+      <% posts.forEach(function(post){ %>
+        <div class="ui image this-image-profile">
+          <img class="ui centered image redo-image" src="<%= post.image %>">
+          <div class="ui bottom attached label"><%= post.name %>, from <%= post.location %><br>
+          "<%= post.description %>"<br>
+          <%= post.likes %> Likes</div>
+        </div>
+      <% }) %>
+      </ul>
+
+    </div>
+    
   <!-- //////////////// BODY ////////////////////-->
 
 

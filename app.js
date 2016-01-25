@@ -58,19 +58,20 @@ MongoClient.connect(mongoUrl, function(err, database) {
 });
 
 //Sessions Authentication
-var authenticate = function(name, password, callback) {
-  db.collection('sessions').findOne({"username": name }, 
+var authenticate = function(username, password, callback) {
+  db.collection('sessions').findOne({ "username": username }, 
     function(err, data) { 
       if (err) { throw err; }
       if (!data) { 
         console.log('No Data');
-        callback(false) 
+        callback(false); 
       } else {
         bcrypt.compare(password, data.password, function(err, isMatch) {
           if (isMatch) {
             callback(data);
           } else {
-            console.log('Didnt match database' + err);
+            console.log('Didnt match database: ' + err);
+            console.log(data.password + password);
             callback(false);
           }
         })
@@ -105,7 +106,8 @@ app.post('/login', function(req, res) {
       if (user) {
           req.session.username = user.username;
           req.session.userID = user._id;
-          res.redirect('/');
+          req.session.photo = user.image;
+          res.redirect('/userprofile');
       } else {
           res.redirect('/login');
           req.flash('error', 'Oops PASSWORD OR USER wrong! ');
@@ -113,25 +115,47 @@ app.post('/login', function(req, res) {
     });
 });
 
-app.post('/user', function(req, res){
+app.post('/user', multipartMiddleware, function (req, res) {
   if (req.body.password === req.body.password_confirm) {
     var password = bcrypt.hashSync(req.body.password, 8);
     var username = req.body.username;
-    db.collection('sessions').insert({username: username, password: password}, 
+    var myfile = req.files["image"]["path"]
+    console.log('my file is ' + myfile);
+    cloudinary.uploader.upload(myfile, function(result) { 
+      console.log(result["url"])
+      db.collection('sessions').insert({
+        username: username, 
+        password: password, 
+        image: result["url"]}, 
       function(err, result){
-        console.log('this was added in the database: \n' + result);
-      }
-    );
-    authenticate(req.body.username, req.body.password, function(user){
-      if (user){
-        req.session.username = user.username;
-        req.session.userID = user._id;
-        res.redirect('/');
-      } else {
-        res.redirect('/login');
-      }
+        console.log('this was added in the database: \n' + JSON.stringify(result));
+      });
     });
+    res.redirect('/confirm_signup')
+  } else {
+    console.log('Wrong password confirmation');
   }
+});
+
+app.get('/confirm_signup', function(req, res) {
+  var currentuser = req.session.username;
+  if (currentuser){
+      res.render('confirm_signup', {user: currentuser});
+    } else {
+      res.redirect('/');
+    }
+});
+
+app.get('/userprofile', function(req, res) {
+  var currentuser = req.session.username;
+  var currentphoto = req.session.photo;
+  db.collection('posts').find({"byuser": currentuser}).sort({lastmodified: -1}).toArray(function(err, results){
+    if (currentuser){
+       res.render('user', {user: currentuser, image: currentphoto, posts: results});
+    } else {
+       res.redirect('/');
+    }
+  })
 });
 
 app.get('/logout', function(req, res) {
@@ -152,6 +176,7 @@ app.get('/all', function (req, res) {
 });
 
 app.post('/all', multipartMiddleware, function (req, res) {
+  var currentuser = req.session.username;
   var myfile = req.files["image"]["path"]
   var uploaded = cloudinary.uploader.upload(myfile, function(result) { 
     console.log(result["url"]) 
@@ -162,7 +187,8 @@ app.post('/all', multipartMiddleware, function (req, res) {
       location: req.body.location,
       likes: 0,
       comments: [],
-      lastmodified: new Date()
+      lastmodified: new Date(),
+      byuser: currentuser
     },
     function(err, result){
       res.redirect('/all');
