@@ -59,20 +59,22 @@ MongoClient.connect(mongoUrl, function(err, database) {
 
 //Sessions Authentication
 var authenticate = function(name, password, callback) {
-  db.collection('sessions').findOne({"username": name}, 
+  db.collection('sessions').findOne({"username": name }, 
     function(err, data) { 
-      if (err) { console.log(err); }
-      console.log('my data is: \n' + data);
-      bcrypt.compare( password, data.password, function(isMatch) {
-      console.log( 'password is ' + data.password + '\nother is ' + password );
-      if (isMatch) {
-        callback(data);
-        console.log('my data after match: \n' + data);
+      if (err) { throw err; }
+      if (!data) { 
+        console.log('No Data');
+        callback(false) 
       } else {
-        console.log('Didnt match database');
-        callback(false);
+        bcrypt.compare(password, data.password, function(err, isMatch) {
+          if (isMatch) {
+            callback(data);
+          } else {
+            console.log('Didnt match database' + err);
+            callback(false);
+          }
+        })
       }
-    })
   });
 };
 
@@ -106,39 +108,27 @@ app.post('/login', function(req, res) {
           res.redirect('/');
       } else {
           res.redirect('/login');
+          req.flash('error', 'Oops PASSWORD OR USER wrong! ');
       }
     });
 });
 
 app.post('/user', function(req, res){
   if (req.body.password === req.body.password_confirm) {
-
-    var beforeencrypted = req.body.password;
     var password = bcrypt.hashSync(req.body.password, 8);
     var username = req.body.username;
-
-    console.log('password is ' + beforeencrypted + 
-      ' encrypted it is ' + password + ' and username is ' + username
-      + ' req is ' + req + ' and res is ' + res + ' and password_confirm is ' +
-      req.body.password_confirm);
-
     db.collection('sessions').insert({username: username, password: password}, 
       function(err, result){
         console.log('this was added in the database: \n' + result);
       }
     );
-
     authenticate(req.body.username, req.body.password, function(user){
-
-      console.log('body.username: ' + req.body.username + '\nbody.password: ' +
-       req.body.password)
-
       if (user){
         req.session.username = user.username;
         req.session.userID = user._id;
-        res.redirect('/all');
-      } else {
         res.redirect('/');
+      } else {
+        res.redirect('/login');
       }
     });
   }
