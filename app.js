@@ -2,20 +2,20 @@
 var express = require('express');
 var app = express();
 var fs = require('fs');
-var MongoClient = require('mongodb').MongoClient;
+var MongoClient = require('mongodb').MongoClient; 
 var ObjectId = require('mongodb').ObjectId;
 var bodyParser = require('body-parser');
-var multipart = require('connect-multiparty');
+var multipart = require('connect-multiparty');  
 var multipartMiddleware = multipart();
 var multiparty = require('multiparty');
 var request = require('request');
 var http = require('http');
 var util = require('util');
-var cloudinary = require('cloudinary');
+var cloudinary = require('cloudinary');   
 var nodemailer = require('nodemailer');
 var _ = require("underscore");
 var router = express.Router();
-var smtpTransport = require('nodemailer-smtp-transport');
+var smtpTransport = require('nodemailer-smtp-transport');     
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var flash = require('connect-flash');
@@ -23,7 +23,6 @@ var methodOverride = require('method-override');
 var bcrypt = require('bcrypt');
 var MongoStore = require('connect-mongo')(session);
 var mongoUrl = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/spottygram';
-var cool = require('cool-ascii-faces');
 
 // Configuration of Middlewares
 app.use(bodyParser.json());
@@ -81,10 +80,6 @@ var authenticate = function(username, password, callback) {
 };
 
 // Routes
-app.get('/cool', function(request, response) {
-  response.send(cool());
-});
-
 app.get('/', function (req, res) {
   var currentuser = req.session.username;
   if (currentuser){
@@ -99,7 +94,7 @@ app.get('/login', function (req, res) {
   if (currentuser){
     res.render('alreadylogged', {user: currentuser});
   } else {
-    res.render('login', {user: 0});
+    res.render('login', {user: 0, messagesignup: req.query.wrongpass, messagelogin: req.query.cantlog});
   }
 });
 
@@ -114,8 +109,7 @@ app.post('/login', function(req, res) {
           req.session.photo = user.image;
           res.redirect('/userprofile');
       } else {
-          res.redirect('/login');
-          req.flash('error', 'Oops PASSWORD OR USER wrong! ');
+          res.redirect('/login?cantlog=wrong+password+try+again+or+sign+up');
       }
     });
 });
@@ -125,9 +119,7 @@ app.post('/user', multipartMiddleware, function (req, res) {
     var password = bcrypt.hashSync(req.body.password, 8);
     var username = req.body.username;
     var myfile = req.files["image"]["path"];
-
-    cloudinary.uploader.upload(myfile, function(result) { 
-      console.log(result["url"]);
+    cloudinary.uploader.upload(myfile, function(result) {  
       db.collection('sessions').insert({
         username: username, 
         password: password, 
@@ -136,8 +128,9 @@ app.post('/user', multipartMiddleware, function (req, res) {
           console.log('this was added in the database: \n' + JSON.stringify(result));
       });
     });
-    res.render('confirm_signup');
+    res.render('confirm_signup');    
   } else {
+    res.redirect('/login?wrongpass=wrong+password+confirmation')
     console.log('Wrong password confirmation');
   }
 });

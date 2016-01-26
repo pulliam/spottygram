@@ -52,6 +52,9 @@
 
   <div class="ui form red login-form">
     <h4 class="ui dividing header">Log In to Creat Grams!</h4>
+    <% if (messagelogin) { %>
+      <p style="color: red;"><%= messagelogin %></p>
+    <% } %>
     <form action="/login" method="post">
       <div class="field"><label>Username</label>
         <input type="text" name="username" placeholder="Username">
@@ -65,13 +68,15 @@
 
   <div class="ui form signup-form">
     <h4 class="ui dividing header">Sign Up to Spottygram!</h4>
-    <!-- Image form -->
+
+    <% if (messagesignup) { %>
+      <p style="color: red;"><%= messagesignup %></p>
+    <% } %>
+
     <form name="upload" action="/user" method="post" enctype="multipart/form-data">
       <div class="field"><label>Select a profile picture:</label>
         <input type="file" name="image" /> 
       </div>
-    <!--/Image form -->
-    <form action="/user" method="POST">
       <div class="field"><label>Username</label>
         <input name="username" type="text">
       </div>
@@ -85,7 +90,7 @@
     </form>
   </div>
   <!-- //////////////// BODY ////////////////////-->
-
+  </div>
 
 </body>
 </html>

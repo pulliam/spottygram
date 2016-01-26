@@ -54,14 +54,12 @@
       <div class="column">
         <div class="ui segment compact">
           <div class="ui form creategram">
-            <!-- Image form -->
             <form name="upload" action="/all" method="post" enctype="multipart/form-data">
-              <div class="field">
-                <label>Select an image to upload:</label>
+              <!-- Image form -->
+              <div class="field"><label>Select an image to upload:</label>
                 <input type="file" name="image" /> 
               </div>
-            <!--/Image form -->
-            <form method="POST" action="/all">
+              <!--/Image form -->
               <div class="field">
                 <input type="text" name="description" placeholder="Description">
               </div>
@@ -122,7 +120,8 @@
                     <option value="WV">West Virginia</option>
                     <option value="WI">Wisconsin</option>
                     <option value="WY">Wyoming</option>
-                    <option disabled role=separator>
+
+                    <option value="" disabled="disabled">─────────────────────────</option>
 
                     <option value="AF">Afghanistan</option>
                     <option value="AX">Åland Islands</option>
@@ -375,14 +374,14 @@
                   </select>
                 </div>
               </div>
-              <input type="submit">
+              <input type="submit" value="Post Image">
             </form>
           </div>
         </div>
       </div>
     </div>
   <!-- //////////////// BODY ////////////////////-->
-
+  </div>
 
 </body>
 </html>
