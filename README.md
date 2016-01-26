@@ -2,7 +2,6 @@
 
 ## User Stories
 * A mix between a Doggies Instagram and "Doggies" version of Humans of New York. This app's intention is to be a free open place where anyone can post a picture of a Dog's spotting and that will automatically be saved to the page. Those are going to be called posts and they are open to receive anyone's comments and likes on it. 
-
 * [For Complete TO DO, Visit Trello](https://trello.com/b/eVudfq72/final-project)
 * [Deployed Application](http://spottygram.herokuapp.com/)
 
@@ -44,3 +43,28 @@ Final Part
 - [x] Make sessions and profile pages
 - [x] A very nice front-end styling with scrolls features etc.
 - [ ] Npm to track who visited my page
+
+## Used Technologies
+- [x] [Node.js](https://nodejs.org/) 
+- [x] [MongoDB](https://www.mongodb.org/)
+- [x] [Express.js](http://expressjs.com/)
+- [x] [JavaScript](https://www.javascript.com/)
+- [x] [jQuery](https://jquery.com/)
+- [x] [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS3)
+- [x] [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML)
+- [x] [Semantic UI](http://semantic-ui.com/)
+- [x] [Animate.css](https://daneden.github.io/animate.css/)
+- [x] [NPM Body-parser](https://github.com/expressjs/body-parser) 
+- [x] [NPM Connect-Multiparty](https://www.npmjs.com/package/connect-multiparty)
+- [x] [NPM Multi-party](https://www.npmjs.com/package/multiparty)
+- [x] [NPM Request](https://www.npmjs.com/package/request)
+- [x] [NPM Http](https://www.npmjs.com/package/http)
+- [x] [NPM Util](https://www.npmjs.com/package/util)
+- [x] [NPM Cloudinary + Claudinary API](cloudinary.com/documentation/node_integration)
+- [x] [NPM Nodemailer]()
+- [x] [NPM Underscore]()
+- [x] [NPM Express-session]()
+- [x] [NPM Cookie-parser]()
+- [x] [NPM Bcrypt]()
+- [x] [Mailchimp widget + API]()
+
