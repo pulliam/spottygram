@@ -1,52 +1,54 @@
 $(document).ready(function() {
 
-//Show comments
+//Toggle Comments
 $('.comments-section').hide();
 $('.see-comments').on('click', function(){
-	// $('.comments-section').toggle();
-	var trying = $(this).next('.comments-section');
-	trying.toggle();
-})
+  var commentaries = $(this).next('.comments-section');
+  commentaries.toggle();
+});
 
-// Side Menu left is opened by button
+// Side Menu is opened by button
 $('.ui.left.sidebar')
     .sidebar('attach events', '.ui.top.attached.demo.menu');
 
-// Button main Page
+// Button to link to /all
 $('.start-grams').on('click', function(){
-	location.href='/all';
+  location.href='/all';
 });
 
+//Add a comment
 $('.comment-input').on('keypress', function(event) {
-	if (event.which === 13) {
-		var $input = $(this),
-			comment = $input.val(),
-			id = $input.data('id');
-		$input.val('');
-		window.alert('Comment posted!');
-		$ul = $('#ul_' + id);
-		$.post('/api/comments', {id: id, comment: comment}).done(function(data) {	
-			console.log(data);
-			$ul.empty();
-			data.forEach(function(comment){
-				$ul.append('<li style="list-style: none;"><i class="quote left icon"></i>' + comment + '<i class="quote right icon"></i></li>');
-			})
-		});
-	}
-})
+  if (event.which === 13) {
+    var $input = $(this),
+      comment = $input.val(),
+      id = $input.data('id');
+    $input.val('');
+    window.alert('Comment posted!');
+    $ul = $('#ul_' + id);
+    $.post('/api/comments', {id: id, comment: comment}).done(function(data) { 
+      console.log(data);
+      $ul.empty();
+      data.forEach(function(comment){
+        $ul.append('<li style="list-style: none;"><i class="quote left icon"></i>' + comment + '<i class="quote right icon"></i></li>');
+      });
+    });
+  }
+});
 
+//Creates Likes and change heart color on click
 $('.heart.outline.like.icon').on('click', function(){
-	var $input = $(this),
-			id = $input.data('id');
-			$(this).removeClass('outline');
-			// var numOfLikes = $('#post_' + id).text();
-			// $('#post_' + id).text(parseInt(numOfLikes) + 1);
-	$.post('/api/likes', {id: id}).done(function(data) {	
-		$('#post_' + id).text(data);
-		console.log(data);
-		});
-})
+  var $input = $(this),
+      id = $input.data('id');
+      $(this).removeClass('outline');
+      // var numOfLikes = $('#post_' + id).text();
+      // $('#post_' + id).text(parseInt(numOfLikes) + 1);
+  $.post('/api/likes', {id: id}).done(function(data) {  
+    $('#post_' + id).text(data);
+    console.log(data);
+    });
+});
 
+//Form validations
 $('.ui.form.creategram')
   .form({
     name: {
@@ -201,9 +203,5 @@ $('.ui.form.signup-form')
     on     : 'blur',
   }
 );
-
-
-
-
 
 });

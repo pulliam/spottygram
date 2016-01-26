@@ -74,7 +74,7 @@ var authenticate = function(username, password, callback) {
             console.log(data.password + password);
             callback(false);
           }
-        })
+        });
       }
   });
 };
@@ -118,19 +118,19 @@ app.post('/user', multipartMiddleware, function (req, res) {
   if (req.body.password === req.body.password_confirm) {
     var password = bcrypt.hashSync(req.body.password, 8);
     var username = req.body.username;
-    var myfile = req.files["image"]["path"];
+    var myfile = req.files.image.path;
     cloudinary.uploader.upload(myfile, function(result) {  
       db.collection('sessions').insert({
         username: username, 
         password: password, 
-        image: result["url"]
+        image: result.url
       },function(err, result){
           console.log('this was added in the database: \n' + JSON.stringify(result));
       });
     });
     res.render('confirm_signup');    
   } else {
-    res.redirect('/login?wrongpass=wrong+password+confirmation')
+    res.redirect('/login?wrongpass=wrong+password+confirmation');
     console.log('Wrong password confirmation');
   }
 });
@@ -153,7 +153,7 @@ app.get('/userprofile', function(req, res) {
     } else {
        res.redirect('/');
     }
-  })
+  });
 });
 
 app.get('/logout', function(req, res) {
@@ -170,18 +170,18 @@ app.get('/all', function (req, res) {
     } else {
        res.render('grams', {posts: results, user: 0});
     }
-  })
+  });
 });
 
 app.post('/all', multipartMiddleware, function (req, res) {
   var currentuser = req.session.username;
   var currentphoto = req.session.photo;
-  var myfile = req.files["image"]["path"]
+  var myfile = req.files.image.path;
   var uploaded = cloudinary.uploader.upload(myfile, function(result) { 
-    console.log(result["url"]) 
+    console.log(result.url); 
     db.collection('posts').insert({ 
       name: req.body.name, 
-      image: result["url"], 
+      image: result.url, 
       description: req.body.description, 
       location: req.body.location,
       likes: 0,
@@ -192,7 +192,7 @@ app.post('/all', multipartMiddleware, function (req, res) {
     },
     function(err, result){
       res.redirect('/all');
-    })
+    });
   });
 });
 
@@ -206,8 +206,8 @@ app.post('/api/comments', function(req, res) {
       db.collection('posts').findOne({"_id": ObjectId(req.body.id)},
         function(err, data){
           res.json(data.comments);
-        })
-    })
+        });
+    });
 });
 
 app.post('/api/likes', function(req, res) {
@@ -219,8 +219,8 @@ app.post('/api/likes', function(req, res) {
       db.collection('posts').findOne({"_id": ObjectId(req.body.id)}, 
         function(err, data){
           res.json(data.likes);
-        })
-    })
+        });
+    });
 });
 
 app.get('/new', function (req, res) {
@@ -240,7 +240,7 @@ app.get('/top', function (req, res) {
     } else {
       res.render('top', {posts: results, user: 0});
     }
-  }) 
+  }); 
 });
 
 app.get('/contact', function (req, res) {
@@ -280,7 +280,7 @@ app.post('/contact', function (req, res) {
         console.log('Message sent: ' + info.response);
         res.render('contact', { messageOfEmail: 'Your message was sent!', messageOfSubscription: 0, user: 0 });
       }  
-    };
+    }
   });
 });
 
