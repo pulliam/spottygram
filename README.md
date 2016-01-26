@@ -2,7 +2,9 @@
 
 ## User Stories
 * A mix between a Doggies Instagram and "Doggies" version of Humans of New York. This app's intention is to be a free open place where anyone can post a picture of a Dog's spotting and that will automatically be saved to the page. Those are going to be called posts and they are open to receive anyone's comments and likes on it. 
+
 * [For Complete TO DO, Visit Trello](https://trello.com/b/eVudfq72/final-project)
+* [Deployed Application](http://spottygram.herokuapp.com/)
 
 ## Wireframes
 <img src="https://cloud.githubusercontent.com/assets/14362520/12569972/c90151c4-c3a1-11e5-905a-8a8f2576df20.jpg" width="400">
@@ -14,7 +16,7 @@
 ## ERD 
 <img src="https://cloud.githubusercontent.com/assets/14362520/12469103/068f287a-bfb7-11e5-8ffa-34907536c011.png" width="500">
 
-<img width="398" alt="screen shot 2016-01-25 at 8 18 19 pm" src="https://cloud.githubusercontent.com/assets/14362520/12569873/e160c2be-c3a0-11e5-9288-041091c0450b.png">
+<img width="398" alt="screen shot 2016-01-25 at 8 18 19 pm" src="https://cloud.githubusercontent.com/assets/14362520/12569873/e160c2be-c3a0-11e5-9288-041091c0450b.png" width="100">
 
 * Database: spottygram
 
