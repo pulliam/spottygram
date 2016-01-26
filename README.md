@@ -5,18 +5,18 @@
 * [For Complete TO DO, Visit Trello](https://trello.com/b/eVudfq72/final-project)
 
 ## Wireframes
-
-![spottiflygram](https://cloud.githubusercontent.com/assets/14362520/12469081/da21bbd6-bfb6-11e5-9f70-307f355b84f6.jpg)
-![spottiflygram2](https://cloud.githubusercontent.com/assets/14362520/12469086/e1096d86-bfb6-11e5-9f89-5a936b174293.jpg)
-![spottiflygram3](https://cloud.githubusercontent.com/assets/14362520/12469088/e3f3eb66-bfb6-11e5-8445-b08089fc5db8.jpg)
-![spottiflygram4](https://cloud.githubusercontent.com/assets/14362520/12469089/e5aa3244-bfb6-11e5-8fe5-0a6ffdb3741e.jpg)
-![spottiflygram](https://cloud.githubusercontent.com/assets/14362520/12469091/e7388430-bfb6-11e5-8f7a-bd5b32b0492c.jpg)
+<img src="https://cloud.githubusercontent.com/assets/14362520/12569972/c90151c4-c3a1-11e5-905a-8a8f2576df20.jpg" width="400">
+<img src="https://cloud.githubusercontent.com/assets/14362520/12469086/e1096d86-bfb6-11e5-9f89-5a936b174293.jpg" width="400">
+<img src="https://cloud.githubusercontent.com/assets/14362520/12469088/e3f3eb66-bfb6-11e5-8445-b08089fc5db8.jpg" width="400">
+<img src="https://cloud.githubusercontent.com/assets/14362520/12469089/e5aa3244-bfb6-11e5-8fe5-0a6ffdb3741e.jpg" width="400">
+<img src="https://cloud.githubusercontent.com/assets/14362520/12469091/e7388430-bfb6-11e5-8f7a-bd5b32b0492c.jpg" width="400">
 
 ## ERD 
-![spottygram 1](https://cloud.githubusercontent.com/assets/14362520/12469103/068f287a-bfb7-11e5-8ffa-34907536c011.png)
-<img width="380" alt="screen shot 2016-01-21 at 3 23 45 pm" src="https://cloud.githubusercontent.com/assets/14362520/12493453/0e2ef53c-c053-11e5-938f-976b63bcec72.png">
-* Database: spottygram ( mongodb://localhost:27017/spottygram )
-* Collection: posts
+<img src="https://cloud.githubusercontent.com/assets/14362520/12469103/068f287a-bfb7-11e5-8ffa-34907536c011.png" width="500">
+
+<img width="398" alt="screen shot 2016-01-25 at 8 18 19 pm" src="https://cloud.githubusercontent.com/assets/14362520/12569873/e160c2be-c3a0-11e5-9288-041091c0450b.png">
+
+* Database: spottygram
 
 ## Current
 First Part
@@ -24,8 +24,8 @@ First Part
 - [x] 2) Install dependencies. 
 - [x] 3) Create Database
 Final Part
-- [ ] 4) Have sessions properly working
-- [ ] 5) Fix password authentication
+- [x] 4) Have sessions properly working
+- [x] 5) Fix password authentication
 
 ## Sprint
 - [x] 1) Have all the posts running and displaying 
@@ -35,11 +35,10 @@ Final Part
 - [x] 5) Have a e-mail system working so visitors can susbscribe to news and send me a e-mail through page's form
 - [x] 6) Have a upload image feature (Not only URL address to add image)
 - [x] 7) Have a nice built and clean code of a Node app
-- [ ] 8) Have sessions properly working
-- [ ] 8) Have it deployed on heroku
+- [x] 8) Have sessions properly working
+- [x] 8) Have it deployed on heroku
 
 ## Backlog
-- [ ] Make sessions and profile pages
-- [ ] Facebook or instagram API
-- [ ] Npm to track who visited my page
+- [x] Make sessions and profile pages
 - [x] A very nice front-end styling with scrolls features etc.
+- [ ] Npm to track who visited my page
